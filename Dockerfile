@@ -18,10 +18,10 @@ RUN pnpm add @directus-labs/collaborative-editing \
     directus-extension-group-tabs-interface \
     @directus-labs/command-palette-module
 
-RUN ls
-
 RUN mkdir -p /tmp/build && \
     cp -r node_modules/* /tmp/build/
+
+RUN ls
 
 FROM directus/directus:11.10.2
 COPY --from=build-stage /tmp/build/extensions /directus/extensions
