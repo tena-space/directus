@@ -3,7 +3,6 @@ FROM ghcr.io/hazmi35/node:22.14.0-dev-alpine as build-stage
 WORKDIR /tmp/build
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
-
 RUN apk add --no-cache build-base git python3
 
 RUN pnpm add @directus-labs/collaborative-editing \
@@ -18,10 +17,9 @@ RUN pnpm add @directus-labs/collaborative-editing \
     directus-extension-group-tabs-interface \
     @directus-labs/command-palette-module
 
-RUN mkdir -p /tmp/build && \
-    cp -r node_modules/* /tmp/build/
-
-RUN ls
+RUN mkdir -p /tmp/build/extensions && \
+    cp -r node_modules/@directus-labs /tmp/build/extensions/ && \
+    cp -r node_modules/directus-extension-* /tmp/build/extensions/ || true
 
 FROM directus/directus:11.10.2
 COPY --from=build-stage /tmp/build/extensions /directus/extensions
