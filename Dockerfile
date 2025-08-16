@@ -2,7 +2,7 @@ FROM ghcr.io/hazmi35/node:22.14.0-dev-alpine as build-stage
 
 WORKDIR /tmp/build
 
-RUN corepack enable && corepack prepare pnpm@latest
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 RUN apk add --no-cache build-base git python3
 
@@ -17,6 +17,8 @@ RUN pnpm add @directus-labs/collaborative-editing \
     @directus-labs/simple-list-interface \
     directus-extension-group-tabs-interface \
     @directus-labs/command-palette-module
+
+RUN ls
 
 RUN mkdir -p /tmp/build && \
     cp -r node_modules/* /tmp/build/
