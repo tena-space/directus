@@ -22,4 +22,4 @@ RUN mkdir -p /tmp/build && \
     cp -r node_modules/* /tmp/build/
 
 FROM directus/directus:11.10.2
-COPY --from=build-stage /builder/extensions /directus/extensions
+COPY --from=build-stage /tmp/build/extensions /directus/extensions
