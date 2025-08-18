@@ -18,11 +18,9 @@ RUN pnpm add @directus-labs/collaborative-editing \
     @directus-labs/command-palette-module \
     directus-extension-sync
 
-RUN pnpm deploy --prod /tmp/deploy
-
 RUN mkdir -p /tmp/build/extensions && \
-    cp -r /tmp/deploy/node_modules/@directus-labs /tmp/build/extensions/ && \
-    cp -r /tmp/deploy/node_modules/directus-extension-* /tmp/build/extensions/ || true
+    find .pnpm -type d -path "*/node_modules/@directus-labs/*" -exec cp -r {} /tmp/build/extensions/ \; && \
+    find .pnpm -type d -path "*/node_modules/directus-extension-*" -exec cp -r {} /tmp/build/extensions/ \; || true
 
 FROM directus/directus:11.10.2
 COPY --from=build-stage /tmp/build/extensions /directus/extensions
