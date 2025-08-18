@@ -15,7 +15,8 @@ RUN pnpm add @directus-labs/collaborative-editing \
     directus-extension-wpslug-interface \
     @directus-labs/simple-list-interface \
     directus-extension-group-tabs-interface \
-    @directus-labs/command-palette-module
+    @directus-labs/command-palette-module \
+    directus-extension-sync
 
 RUN mkdir -p /tmp/build/extensions && \
     cp -r node_modules/@directus-labs /tmp/build/extensions/ && \
