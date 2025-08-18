@@ -19,8 +19,8 @@ RUN pnpm add @directus-labs/collaborative-editing \
     directus-extension-sync
 
 RUN mkdir -p /tmp/build/extensions && \
-    cp -r node_modules/@directus-labs /tmp/build/extensions/ && \
-    cp -r node_modules/directus-extension-* /tmp/build/extensions/ || true
+    cp -r .pnpm/*/node_modules/@directus-labs/* /tmp/build/extensions/ && \
+    cp -r .pnpm/*/node_modules/directus-extension-* /tmp/build/extensions/ || true
 
 FROM directus/directus:11.10.2
 COPY --from=build-stage /tmp/build/extensions /directus/extensions
